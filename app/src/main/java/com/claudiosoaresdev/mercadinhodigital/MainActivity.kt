@@ -3,26 +3,52 @@ package com.claudiosoaresdev.mercadinhodigital
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.claudiosoaresdev.mercadinhodigital.ui.theme.MercadinhoDigitalTheme
+import androidx.navigation.compose.rememberNavController
+import com.claudiosoaresdev.mercadinhodigital.navigation.DrawerNavigation
+import com.claudiosoaresdev.mercadinhodigital.shared.components.Drawer
+import com.claudiosoaresdev.mercadinhodigital.shared.components.TopBar
+import com.claudiosoaresdev.mercadinhodigital.shared.theme.MercadinhoDigitalTheme
+import kotlinx.coroutines.launch
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             MercadinhoDigitalTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                val navController = rememberNavController()
+
+                val drawerState = rememberDrawerState(DrawerValue.Closed)
+                val scope = rememberCoroutineScope()
+
+                ModalNavigationDrawer(
+                    drawerState = drawerState,
+                    drawerContent = {
+                        Drawer(navController = navController)
+                    }
+                ) {
+                    Scaffold(
+                        topBar = {
+                            TopBar(
+                                title = "Mercadinho Digital",
+                                navigationIcon = Icons.Filled.Menu,
+                                onNavigationClick = {
+                                    scope.launch { drawerState.open() }
+                                }
+                            )
+                        },
+                        content = { paddingValues ->
+                            Box(modifier = Modifier.padding(paddingValues)) {
+                                DrawerNavigation(navController = navController)
+                            }
+                        }
                     )
                 }
             }
@@ -30,18 +56,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MercadinhoDigitalTheme {
-        Greeting("Android")
-    }
-}

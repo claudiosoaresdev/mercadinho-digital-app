@@ -1,4 +1,4 @@
-package com.claudiosoaresdev.mercadinhodigital.ui.theme
+package com.claudiosoaresdev.mercadinhodigital.shared.theme
 
 import androidx.compose.ui.graphics.Color
 
