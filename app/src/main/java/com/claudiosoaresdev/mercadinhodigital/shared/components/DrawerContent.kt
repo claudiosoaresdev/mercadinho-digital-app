@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,8 +16,9 @@ import androidx.navigation.NavController
 import com.claudiosoaresdev.mercadinhodigital.navigation.NavigationRoutes
 
 @Composable
-fun Drawer(
+fun DrawerContent(
     navController: NavController,
+    closeDrawer: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -29,9 +32,11 @@ fun Drawer(
                 .padding(16.dp)
         ) {
             DrawerItem(
-                text = "Home",
+                label = "Home",
+                icon = Icons.Default.Home,
                 onClick = {
                     navController.navigate(NavigationRoutes.HOME)
+                    closeDrawer()
                 }
             )
         }

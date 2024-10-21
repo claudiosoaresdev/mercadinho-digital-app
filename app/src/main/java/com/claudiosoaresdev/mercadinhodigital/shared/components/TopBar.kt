@@ -14,6 +14,7 @@ fun TopBar(
     title: String,
     onNavigationClick: () -> Unit = {},
     navigationIcon: ImageVector? = null,
+    navigationIconContentDescription: String? = "Navigation Icon",
     actions: @Composable RowScope.() -> Unit = {}
 ) {
     TopAppBar(
@@ -29,7 +30,7 @@ fun TopBar(
                 IconButton(onClick = onNavigationClick) {
                     Icon(
                         imageVector = it,
-                        contentDescription = "Navigation Icon"
+                        contentDescription = navigationIconContentDescription
                     )
                 }
             }
