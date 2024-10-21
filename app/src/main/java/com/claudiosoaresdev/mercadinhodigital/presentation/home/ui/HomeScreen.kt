@@ -1,31 +1,70 @@
 package com.claudiosoaresdev.mercadinhodigital.presentation.home.ui
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.claudiosoaresdev.mercadinhodigital.shared.theme.MercadinhoDigitalTheme
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+
+import com.claudiosoaresdev.mercadinhodigital.shared.components.TopBar
 
 @Composable
-fun HomeScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(text = "Bem-vindo ao Mercadinho Digital!")
+fun HomeScreen(
+    navController: NavController,
+    scope: CoroutineScope,
+    openDrawer: () -> Unit
+) {
+    val onMenuClick: () -> Unit = {
+        scope.launch { openDrawer() }
     }
+
+    Scaffold (
+        topBar = {
+            TopBar(
+                title = "Home",
+                navigationIcon = Icons.Filled.Menu,
+                onNavigationClick = onMenuClick
+            )
+        },
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                contentAlignment = Alignment.Center,
+            ) {
+                Button(onClick = {
+                    navController.navigate("secondary")
+                }) {
+                    Text("Go to Secondary Screen")
+                }
+            }
+        }
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
-    MercadinhoDigitalTheme {
-        HomeScreen()
-    }
+    val navController = rememberNavController()
+    val scope = rememberCoroutineScope()
+
+    HomeScreen(
+        navController = navController,
+        scope = scope,
+        openDrawer = {}
+    )
 }
+

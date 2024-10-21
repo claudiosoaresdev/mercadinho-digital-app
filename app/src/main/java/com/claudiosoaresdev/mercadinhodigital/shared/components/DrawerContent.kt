@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -36,6 +37,14 @@ fun DrawerContent(
                 icon = Icons.Default.Home,
                 onClick = {
                     navController.navigate(NavigationRoutes.HOME)
+                    closeDrawer()
+                }
+            )
+            DrawerItem(
+                label = "Secondary Screen",
+                icon = Icons.Default.Favorite,
+                onClick = {
+                    navController.navigate(NavigationRoutes.SECONDARY)
                     closeDrawer()
                 }
             )

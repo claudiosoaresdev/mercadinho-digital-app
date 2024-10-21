@@ -5,18 +5,34 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import kotlinx.coroutines.CoroutineScope
+
 import com.claudiosoaresdev.mercadinhodigital.presentation.home.ui.*
+import com.claudiosoaresdev.mercadinhodigital.presentation.secondary.ui.SecondaryScreen
 
 @Composable
 fun DrawerNavigation(
-    navController: NavHostController,
     modifier: Modifier = Modifier,
+    navController: NavHostController,
+    scope: CoroutineScope,
+    openDrawer: () -> Unit,
 ) {
     NavHost(
+        modifier = modifier,
         navController = navController,
         startDestination = NavigationRoutes.HOME,
-        modifier = modifier
     ) {
-        composable(NavigationRoutes.HOME) { HomeScreen() }
+        composable(NavigationRoutes.HOME) {
+            HomeScreen(
+                navController = navController,
+                scope = scope,
+                openDrawer = openDrawer
+            )
+        }
+        composable(NavigationRoutes.SECONDARY) {
+            SecondaryScreen(
+                navController = navController
+            )
+        }
     }
 }

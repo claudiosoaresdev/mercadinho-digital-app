@@ -3,24 +3,24 @@ package com.claudiosoaresdev.mercadinhodigital
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.launch
+
 import com.claudiosoaresdev.mercadinhodigital.navigation.DrawerNavigation
 import com.claudiosoaresdev.mercadinhodigital.shared.components.DrawerContent
-import com.claudiosoaresdev.mercadinhodigital.shared.components.TopBar
 import com.claudiosoaresdev.mercadinhodigital.shared.theme.MercadinhoDigitalTheme
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             MercadinhoDigitalApp()
         }
@@ -33,7 +33,7 @@ fun MercadinhoDigitalApp () {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
-    val onMenuClick: () -> Unit = {
+    val openDrawer: () -> Unit = {
         scope.launch { drawerState.open() }
     }
 
@@ -50,19 +50,10 @@ fun MercadinhoDigitalApp () {
                 }
             }
         ) {
-            Scaffold(
-                topBar = {
-                    TopBar(
-                        title = "Mercadinho Digital",
-                        navigationIcon = Icons.Filled.Menu,
-                        onNavigationClick = onMenuClick
-                    )
-                },
-                content = { paddingValues ->
-                    Box(modifier = Modifier.padding(paddingValues)) {
-                        DrawerNavigation(navController = navController)
-                    }
-                }
+            DrawerNavigation(
+                navController = navController,
+                scope = scope,
+                openDrawer = openDrawer
             )
         }
     }
