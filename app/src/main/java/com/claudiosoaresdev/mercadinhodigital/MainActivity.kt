@@ -61,6 +61,6 @@ fun MercadinhoDigitalApp () {
 
 @Preview(showBackground = true)
 @Composable
-private fun AppPreview () {
+private fun MercadinhoDigitalAppPreview () {
     MercadinhoDigitalApp()
 }

@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import kotlinx.coroutines.CoroutineScope
 
 import com.claudiosoaresdev.mercadinhodigital.presentation.home.ui.*
-import com.claudiosoaresdev.mercadinhodigital.presentation.secondary.ui.SecondaryScreen
+import com.claudiosoaresdev.mercadinhodigital.presentation.secondary.ui.*
 
 @Composable
 fun DrawerNavigation(

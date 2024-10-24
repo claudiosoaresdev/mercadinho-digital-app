@@ -12,13 +12,15 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+
 import com.claudiosoaresdev.mercadinhodigital.navigation.NavigationRoutes
 
 @Composable
 fun DrawerContent(
-    navController: NavController,
+    navController: NavController?,
     closeDrawer: () -> Unit
 ) {
     Box(
@@ -36,7 +38,7 @@ fun DrawerContent(
                 label = "Home",
                 icon = Icons.Default.Home,
                 onClick = {
-                    navController.navigate(NavigationRoutes.HOME)
+                    navController?.navigate(NavigationRoutes.HOME)
                     closeDrawer()
                 }
             )
@@ -44,7 +46,7 @@ fun DrawerContent(
                 label = "Secondary Screen",
                 icon = Icons.Default.Favorite,
                 onClick = {
-                    navController.navigate(NavigationRoutes.SECONDARY)
+                    navController?.navigate(NavigationRoutes.SECONDARY)
                     closeDrawer()
                 }
             )
@@ -52,3 +54,11 @@ fun DrawerContent(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+private fun DrawerContentPreview () {
+    DrawerContent(
+        navController = null,
+        closeDrawer = {}
+    )
+}

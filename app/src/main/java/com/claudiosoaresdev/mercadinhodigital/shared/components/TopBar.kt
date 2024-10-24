@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,5 +37,13 @@ fun TopBar(
             }
         },
         actions = actions
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TopBarPreview () {
+    TopBar(
+        title = "Title"
     )
 }
